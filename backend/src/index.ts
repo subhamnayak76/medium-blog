@@ -3,6 +3,7 @@ import { Hono } from "hono";
 import { sign, verify } from "hono/jwt";
 import { userrouter } from "./routes/user";
 import{ blogrouter} from "./routes/post"
+import { cors } from "hono/cors";
 // Create the main Hono app
 const app = new Hono<{
   Bindings: {
@@ -13,6 +14,7 @@ const app = new Hono<{
     userId: string;
   };
 }>();
+app.use('/*', cors())
 app.route("/api/v1/user",userrouter);
 app.route("/api/v1/blog",blogrouter);
 // app.use("/api/v1/blog/*", async (c, next) => {
